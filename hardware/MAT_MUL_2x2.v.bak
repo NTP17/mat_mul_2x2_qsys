@@ -1,0 +1,75 @@
+// Copyright (C) 2018  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details.
+
+// PROGRAM		"Quartus Prime"
+// VERSION		"Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
+// CREATED		"Tue Nov 29 20:30:05 2022"
+
+module MAT_MUL_2x2(
+	clock,
+	resetn,
+	byteenable,
+	D,
+	Q
+);
+
+
+input wire	clock;
+input wire	resetn;
+input wire	[3:0] byteenable;
+input wire	[31:0] D;
+output wire	[31:0] Q;
+
+wire	[31:0] ins;
+wire	[31:0] outs;
+wire	SYNTHESIZED_WIRE_0;
+
+
+
+
+
+reg32	b2v_inst(
+	.clock(clock),
+	.resetn(resetn),
+	.byteenable(byteenable),
+	.D(D),
+	.Q(ins));
+
+
+four_bit_2x2_matrix_multiplier	b2v_inst2(
+	.M1_R1C1(ins[31:28]),
+	.M1_R1C2(ins[27:24]),
+	.M1_R2C1(ins[23:20]),
+	.M1_R2C2(ins[19:16]),
+	.M2_R1C1(ins[15:12]),
+	.M2_R1C2(ins[11:8]),
+	.M2_R2C1(ins[7:4]),
+	.M2_R2C2(ins[3:0]),
+	.MX_R1C1(outs[31:24]),
+	.MX_R1C2(outs[23:16]),
+	.MX_R2C1(outs[15:8]),
+	.MX_R2C2(outs[7:0]));
+
+
+reg32	b2v_inst3(
+	.clock(SYNTHESIZED_WIRE_0),
+	.resetn(resetn),
+	.byteenable(byteenable),
+	.D(outs),
+	.Q(Q));
+
+assign	SYNTHESIZED_WIRE_0 =  ~clock;
+
+
+endmodule
